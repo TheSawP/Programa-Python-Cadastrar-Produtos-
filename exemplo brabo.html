@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        var ids = []; //ira armazenar o codigo do produto
+        var names = []; //ira armazenar o nome
+        var prices = []; // ira armazenar os valores do produto
+        var i = 0 //posição inicial do vetor e ira percorrer o vetor
+            //vetores devem ir fora do window.onload
+        window.onload = function () {
+                document.getElementById("btncad").onclick = function () {
+                        cadastrarProduto(); //definir o metodo
+                    } //ira definir o evento de click no botao
+                document.getElementById("btnpesq").onclick = function () {
+                    pesquisarProduto();
+                }
+                document.getElementById("btnlista").onclick = function () {
+                    listarProdutos();
+                }
+            } //verificar se a pagina esta totalmente carregada
+        function cadastrarProduto() {
+            var cod = parseInt(document.getElementById("txtcod").value); //ira converter o valor inserido na variavel txtcod e armazenar seu valor na variavel
+            var preco = parseFloat(document.getElementById("txtpreco").value); //ira converter o valor inserido na variavel txtpreco e armazenar na variavel
+            var nome = document.getElementById("txtpreco").value; //ira armazenar o  valor digitado na variavel(ele usa o value ) 
+            ids[i] = cod // ID do produto na posição i ira ser armazenado na variavel cod
+            names[i] = nome //nome do produto na posição i ira ser armazenado na variavel nome
+            prices[i] = preco //preco do produto na posição i ira ser armazenado na variavel preco
+            i++; //aumentar a posição de i no vetor cada vez que for clicado
+        } //definir a função 
+        function pesquisarProduto() {
+            
+            var pesq = document.getElementById("txtpesq").value;
+            var msg ="";
+            for (var pos=0; pos < ids.length; pos++){
+                if(names[pos].indexOf(pesq)>=0){
+                    msg += ids[pos]+","+names[pos]+"<br>"
+                }
+                
+            }
+            if(msg !=""){
+               document.getElementById("txtrelatorio").innerHTML=msg;
+               }
+               else{
+                   alert("produto nao existe")
+               }
+               
+            document.getElementById("txtrelatorio").innerHTML=msg;
+            
+            
+            
+            
+        }
+
+        function listarProdutos() {
+            var conteudo = "<table border='1'>"; //ira criar uma tabela em html
+            for (var pos = 0; pos < ids.length; pos++) {
+                conteudo += "<tr>";
+                conteudo += "<td>" + ids[pos] + "</td>"
+                conteudo += "<td>" + names[pos] + "</td>"
+                conteudo += "<td>" + prices[pos] + "</td>"
+                conteudo += "</tr>";
+            } //definir variavel pos na posição 0 (mesma do indice) e emquanto for menor que o tamanho da variavel de codigo do produto
+            conteudo += "</table>" //fechar a tabela 
+            document.getElementById("txtrelatorio").innerHTML=conteudo//jogar o conteudo criado na tabela na DIV no codigo html
+        }
+    </script>
+</head>
+
+<body>
+    <form> Codigo:
+        <input type="text" id="txtcod">
+        <br> Nome:
+        <input type="text" id="txtnome">
+        <br> Preço:
+        <input type="text" id="txtpreco">
+        <br>
+        <input type="button" value="Cadastrar" id="btncad">
+        <br>
+        <br> Pesquisa:
+        <input type="text" id="txtpesq">
+        <input type="button" value="Pesquisar" id="btnpesq">
+        <input type="button" value="Listar todos" id="btnlista"> </form>
+    <div id="txtrelatorio"></div>
+</body>
+
+</html>
